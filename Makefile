@@ -33,7 +33,10 @@ ifdef NIX_PATH
 export SQLITE3_API_BUILD_COMMAND = nix-shell -p sqlite.dev --run "make all"
 endif
 
-LOAD_PATH  ?= $(addprefix -L ../,$(DEPS))
+PREFIX  := $(shell $(EMACS) -Q --batch --eval \
+	"(princ (expand-file-name \"../../../..\" data-directory))")
+
+LOAD_PATH  ?= -L $(PREFIX)/share/emacs/site-lisp
 LOAD_PATH  += -L .
 LOAD_PATH  += -L ./tests
 
