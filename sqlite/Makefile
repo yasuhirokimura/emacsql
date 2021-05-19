@@ -1,7 +1,7 @@
 -include ../.config.mk
 
 .POSIX:
-LDLIBS = -ldl -lm
+LDLIBS = -ldl -lm -lsqlite3
 CFLAGS = -O2 -Wall -Wextra -Wno-implicit-fallthrough \
     -DSQLITE_THREADSAFE=0 \
     -DSQLITE_DEFAULT_FOREIGN_KEYS=1 \
@@ -12,8 +12,8 @@ CFLAGS = -O2 -Wall -Wextra -Wno-implicit-fallthrough \
     -DSQLITE_ENABLE_JSON1 \
     -DSQLITE_SOUNDEX
 
-emacsql-sqlite: emacsql.c sqlite3.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ emacsql.c sqlite3.c $(LDLIBS)
+emacsql-sqlite: emacsql.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ emacsql.c $(LDLIBS)
 
 clean:
 	rm -f emacsql-sqlite
