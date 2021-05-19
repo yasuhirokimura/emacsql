@@ -37,15 +37,11 @@
   "Relative path to emacsql executable.")
 
 (defvar emacsql-sqlite-executable
-  (expand-file-name emacsql-sqlite-executable-path
-                    (if (or (file-writable-p emacsql-sqlite-data-root)
-                            (file-exists-p (expand-file-name
-                                            emacsql-sqlite-executable-path
-                                            emacsql-sqlite-data-root)))
-                        emacsql-sqlite-data-root
-                      (expand-file-name
-                       (concat "emacsql/" emacsql-version)
-                       user-emacs-directory)))
+  (expand-file-name
+   (if (memq system-type '(windows-nt cygwin ms-dos))
+      "../../../../bin/emacsql-sqlite.exe"
+     "../../../../bin/emacsql-sqlite")
+   data-directory)
   "Path to the EmacSQL backend (this is not the sqlite3 shell).")
 
 (defvar emacsql-sqlite-c-compilers '("cc" "gcc" "clang")
