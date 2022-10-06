@@ -1,6 +1,7 @@
 -include ../.config.mk
 
 .POSIX:
+CC = cc
 LDLIBS = -ldl -lm -lsqlite3
 CFLAGS = -O2 -Wall -Wextra -Wno-implicit-fallthrough \
     -DSQLITE_THREADSAFE=0 \
