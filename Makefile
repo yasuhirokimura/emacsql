@@ -48,6 +48,7 @@ help:
 	$(info make lisp         - generate byte-code and autoloads)
 	$(info make redo         - re-generate byte-code and autoloads)
 	$(info make test         - run tests)
+	$(info make install      - install byte-code and autoloads)
 	$(info make clean        - remove byte-code and autoloads)
 	@printf "\n"
 
@@ -93,6 +94,10 @@ test: all $(TEST_ELCS)
 	@printf "Running connector tests...\n"
 	@$(EMACS) -Q --batch $(EMACS_ARGS) $(LOAD_PATH) -L tests \
 	-l tests/emacsql-external-tests.elc -f ert-run-tests-batch-and-exit
+
+install: lisp
+	install -d $(PREFIX)/share/emacs/site-lisp/emacsql
+	install -m 644 -p *.el *.elc $(PREFIX)/share/emacs/site-lisp/emacsql
 
 ifeq ($(CI), true)
 override GITSTATS = ../_gitstats/gitstats
